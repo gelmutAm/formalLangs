@@ -39,8 +39,6 @@ namespace FormalLangs
                 {
                     string line = file.ReadLine();
 
-                    int transitionCount = 0;
-                    
                     if (lineCount < 4)
                     {
                         List<string> temp = line.Split(' ').ToList();
@@ -52,11 +50,14 @@ namespace FormalLangs
                         while (temp.Length > 0)
                         {
                             int lastIndex = temp.ToString().IndexOf('}');
-                            List<string> values = temp.ToString().Substring(1, lastIndex - 1).Split(' ').ToList();
+                            List<string> values = temp
+                                .ToString()
+                                .Substring(1, lastIndex - 1)
+                                .Split(' ')
+                                .ToList();
                             List<List<string>> tempMatrix = new List<List<string>>();
                             tempMatrix.Add(values);
                             tempTransitionFunction.Add(tempMatrix);
-                            transitionCount++;
                             temp.Remove(0, lastIndex + 1);
                         }
                     }
