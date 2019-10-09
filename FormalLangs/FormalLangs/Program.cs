@@ -10,9 +10,9 @@ namespace FormalLangs
     {
         static void Main(string[] args)
         {
-            FiniteStateMachine test = new FiniteStateMachine("input.txt");
+            FiniteStateMachine test = new FiniteStateMachine("input1.json");
 
-            FiniteStateMachine test1 = test;
+            Console.WriteLine(test.MaxString("hvvvhhvvhv", 0));
         }
     }
 }
