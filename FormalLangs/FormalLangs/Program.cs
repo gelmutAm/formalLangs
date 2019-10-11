@@ -12,7 +12,7 @@ namespace FormalLangs
         {
             FiniteStateMachine test = new FiniteStateMachine("input1.json");
 
-            Console.WriteLine(test.MaxString("hvvvhhvvhv", 0));
+            Console.WriteLine(test.MaxString("hvvvhhvvhv", 1));
         }
     }
 }

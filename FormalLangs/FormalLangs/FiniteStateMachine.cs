@@ -21,7 +21,6 @@ namespace FormalLangs
 
         public List<string> FinalStates { get; set; }
 
-
         public FiniteStateMachine() { }
 
         public FiniteStateMachine(List<string> alphabet, List<string> states, List<string> initialStates,
@@ -32,7 +31,7 @@ namespace FormalLangs
             this.InitialStates = initialStates;
             this.StateTransitionFunction = stateTransitionFunction;
             this.FinalStates = finalStates;
-        }        
+        }
 
         public FiniteStateMachine(string fileName)
         {
@@ -53,40 +52,37 @@ namespace FormalLangs
             bool flag = false;
             int maxLength = 0;
 
-            for (int i = 0; i < this.InitialStates.Count; i++)
+            List<string> currentStates = new List<string>();
+            currentStates.AddRange(this.InitialStates);
+
+            if (currentStates.Intersect(this.FinalStates).ToList().Count != 0)
             {
-                List<string> currentStates = new List<string>();
-                currentStates.Add(InitialStates[i]);
-
-                for (int j = startIndex; j < text.Length; j++)
-                {
-                    if (this.Alphabet.Contains(text[j].ToString()))
-                    {
-                        if (currentStates.Intersect(this.FinalStates).ToList().Count != 0)
-                        {
-                            flag = true;
-                        }
-
-                        int count = currentStates.Count;
-                        for (int k = 0; k < count; k++)
-                        {
-                            currentStates.AddRange(this.StateTransitionFunction[text[j].ToString()][currentStates[k]]);
-                            currentStates = currentStates.Distinct().ToList();
-                        }
-
-                        currentStates.RemoveRange(0, count);
-                        if (currentStates.Intersect(this.FinalStates).ToList().Count != 0)
-                        {
-                            flag = true;
-                            maxLength = (j + 1 - startIndex > maxLength) ? j + 1 - startIndex : maxLength;
-                        }
-                    }
-                    else
-                    {
-                        return new KeyValuePair<bool, int>(flag, maxLength);
-                    }
-                }                
+                flag = true;
             }
+
+            for (int i = startIndex; i < text.Length; i++)
+            {
+                if (this.Alphabet.Contains(text[i].ToString()))
+                {                    
+                    int count = currentStates.Count;
+                    for (int j = 0; j < count; j++)
+                    {
+                        currentStates.AddRange(this.StateTransitionFunction[text[i].ToString()][currentStates[j]]);                        
+                    }
+
+                    currentStates.RemoveRange(0, count);
+                    currentStates = currentStates.Distinct().ToList();
+                    if (currentStates.Intersect(this.FinalStates).ToList().Count != 0)
+                    {
+                        flag = true;
+                        maxLength = i + 1 - startIndex;
+                    }
+                }
+                else
+                {
+                    return new KeyValuePair<bool, int>(flag, maxLength);
+                }
+            }                
 
             return new KeyValuePair<bool, int>(flag, maxLength);
         }
