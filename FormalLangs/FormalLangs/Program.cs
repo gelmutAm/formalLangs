@@ -10,9 +10,27 @@ namespace FormalLangs
     {
         static void Main(string[] args)
         {
-            FiniteStateMachine test = new FiniteStateMachine("input1.json");
+            FiniteStateMachine machine = new FiniteStateMachine("input_double.json");
 
-            Console.WriteLine(test.MaxString("hvvvhhvvhv", 1));
+            string inputString = FileManager.Read("inputString.txt");
+
+            int k = 0;
+            while(k < inputString.Length)
+            {
+                KeyValuePair<bool, int> result = machine.MaxString(inputString, k);
+
+                if(result.Key == true)
+                {
+                    string outputString = inputString.Substring(k, result.Value);
+                    FileManager.Write("output.txt", outputString);
+                    Console.WriteLine(outputString);
+                    k += result.Value;
+                }
+                else
+                {
+                    k++;
+                }
+            }
         }
     }
 }
