@@ -22,7 +22,7 @@ namespace FormalLangs
                 foreach(LexemeClass lexemeClass in lexemeClasses)
                 {
                     KeyValuePair<bool, int> temp = lexemeClass.Machine.MaxString(text, index);
-                    if(temp.Key == true)
+                    if(temp.Key)
                     {
                         if(maxLength < temp.Value)
                         {

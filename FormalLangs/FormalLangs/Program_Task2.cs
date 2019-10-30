@@ -10,8 +10,8 @@ namespace FormalLangs
     {
         static void Main(string[] args)
         {
-            LexemeClass id = new LexemeClass("ID", new FiniteStateMachine("id.json"), 1);
-            LexemeClass kw = new LexemeClass("KW", new FiniteStateMachine("kw.json"), 2);
+            LexemeClass id = new LexemeClass("ID.txt");
+            LexemeClass kw = new LexemeClass("KW.txt");
             List<LexemeClass> lexemeClasses = new List<LexemeClass>();
             lexemeClasses.Add(id);
             lexemeClasses.Add(kw);
