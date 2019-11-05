@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ namespace FormalLangs
             int index = 0;
             while(index < text.Length)
             {
-                string currentLexeme = String.Empty;
+                string currentLexemeClass = String.Empty;
                 int currentPriority = 0;
                 int maxLength = 0;
 
@@ -26,13 +26,13 @@ namespace FormalLangs
                     {
                         if(maxLength < temp.Value)
                         {
-                            currentLexeme = lexemeClass.Name;
+                            currentLexemeClass = lexemeClass.Name;
                             currentPriority = lexemeClass.Priority;
                             maxLength = temp.Value;
                         }
                         else if (maxLength == temp.Value && currentPriority < lexemeClass.Priority)
                         {
-                            currentLexeme = lexemeClass.Name;
+                            currentLexemeClass = lexemeClass.Name;
                             currentPriority = lexemeClass.Priority;
                             maxLength = temp.Value;
                         }
@@ -41,7 +41,7 @@ namespace FormalLangs
 
                 if(maxLength > 0)
                 {
-                    result.Add(new KeyValuePair<string, string>(currentLexeme, text.Substring(index, maxLength)));
+                    result.Add(new KeyValuePair<string, string>(currentLexemeClass, text.Substring(index, maxLength)));
                     index += maxLength;
                 }
                 else
